@@ -1,0 +1,40 @@
+<mat-toolbar class="justify-between max-w-7xl mx-auto border-x" >
+  <!-- <span>My Application</span> -->
+  <a routerLink="home">Internet Shopee</a>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon
+    [matBadge]="itemsQuantity"
+    [matBadgeHidden]="!itemsQuantity"
+    matBadgeColor="warn">shopping_cart</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+   <div class="p-4 divide-y divide-dashed">
+        <div class="flex justify-between pb-3">
+        <span class="mr-16">{{itemsQuantity}} items</span>
+        <a routerLink="cart" >View Cart</a>
+        </div>
+        <div *ngIf="cart.items.length" class="py-3">
+                  <div class="flex justify-between mb-3" *ngFor="let item of cart.items">
+                  {{item.name}} x {{item.quantity}}
+                  <span>{{item.price * 82| currency:'INR'}}</span>
+                 </div>
+        </div>
+        <div class="flex justify-between py-3" >
+             Total:
+             <span class="font-bold">{{ getTotal(cart.items) * 82| currency:'INR'}}</span>
+        </div>
+        <div class="flex justify-between py-3" >
+          <button
+          (click)="onClearCart()"
+          class="bg-rose-900 text-white rounded-full w-9 h-9">
+            <mat-icon>remove_shopping_cart</mat-icon>
+          </button>
+          <button class="bg-green-900 text-white rounded-full w-9 h-9">
+            <mat-icon>remove_shopping_cart</mat-icon>
+          </button>
+        </div>
+   </div>
+
+  </mat-menu>
+
+</mat-toolbar>
